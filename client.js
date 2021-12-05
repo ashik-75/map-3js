@@ -10,7 +10,7 @@ const canvas = document.querySelector(".webgl");
 
 // scene setup
 scene = new THREE.Scene();
-scene.background = new THREE.Color(0xf0efeb);
+scene.background = new THREE.Color(0xffffff);
 
 // camera setup
 const fov = 50;
@@ -27,7 +27,7 @@ renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: true,
 });
-renderer.setSize(window.innerWidth, window.innerHeight / 1.5);
+renderer.setSize(window.innerWidth / 1.1, window.innerHeight / 1.1);
 renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
 renderer.autoClear = false;
 renderer.setClearColor(0x000000, 0.0);
