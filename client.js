@@ -27,7 +27,7 @@ renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: true,
 });
-renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+renderer.setSize(window.innerWidth, window.innerHeight / 1.5);
 renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
 renderer.autoClear = false;
 renderer.setClearColor(0x000000, 0.0);
@@ -96,7 +96,7 @@ window.addEventListener(
   () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight / 1.5);
     render();
   },
   false
