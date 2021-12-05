@@ -27,7 +27,7 @@ renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: true,
 });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
 renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
 renderer.autoClear = false;
 renderer.setClearColor(0x000000, 0.0);
@@ -104,7 +104,7 @@ window.addEventListener(
 
 // current fps
 const stats = Stats();
-document.body.appendChild(stats.dom);
+// document.body.appendChild(stats.dom);
 
 // spinning animation
 const animate = () => {
