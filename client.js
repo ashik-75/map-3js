@@ -10,7 +10,12 @@ const canvas = document.querySelector(".webgl");
 
 // scene setup
 scene = new THREE.Scene();
-scene.background = new THREE.Color(0xffffff);
+scene.background = new THREE.Color(0x357fb0);
+
+// const light = new THREE.DirectionalLight(0xffffff, 1, 100);
+// light.position.set(0, 1, 0); //default; light shining from top
+// light.castShadow = true; // default false
+// scene.add(light);
 
 // camera setup
 const fov = 60;
@@ -32,8 +37,51 @@ renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
 renderer.autoClear = false;
 renderer.setClearColor(0x000000, 0.0);
 
+// apply shadow
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+
+//Create a DirectionalLight and turn on shadows for the light
+const light = new THREE.DirectionalLight(0xffffff, 1, 100);
+light.position.set(0, 1, 0); //default; light shining from top
+light.castShadow = true; // default false
+scene.add(light);
+
+//Set up shadow properties for the light
+// light.shadow.mapSize.width = 512; // default
+// light.shadow.mapSize.height = 512; // default
+// light.shadow.camera.near = 0.5; // default
+// light.shadow.camera.far = 500; // default
+
+//Create a sphere that cast shadows (but does not receive them)
+// const sphereGeometry = new THREE.SphereGeometry(5, 32, 32);
+// const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+// const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+// sphere.castShadow = true; //default is false
+// sphere.receiveShadow = false; //default
+// scene.add(sphere);
+
+//Create a plane that receives shadows (but does not cast them)
+// const planeGeometry = new THREE.PlaneGeometry(20, 40, 32, 32);
+// const planeMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff77 });
+// const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+// plane.receiveShadow = true;
+// scene.add(plane);
+
+//Create a helper for the shadow camera (optional)
+// const helper = new THREE.CameraHelper(light.shadow.camera);
+// scene.add(helper);
+
+// end shadow
+
 // orbit control setup
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.keys = {
+  LEFT: "ArrowLeft", //left arrow
+  UP: "ArrowUp", // up arrow
+  RIGHT: "ArrowRight", // right arrow
+  BOTTOM: "ArrowDown", // down arrow
+};
 
 // earth geometry
 const earthGeometry = new THREE.SphereGeometry(0.6, 32, 32);
@@ -78,7 +126,7 @@ scene.add(earthMesh);
 // scene.add(starMesh);
 
 // ambient light (how much area light)
-const ambientlight = new THREE.AmbientLight(0xffffff, 0.1);
+const ambientlight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientlight);
 
 // point light (how mush hard light)
@@ -117,6 +165,11 @@ const animate = () => {
   stats.update();
 };
 
+// window.addEventListener("wheel", onMouseWheel);
+
+// function onMouseWheel(event) {
+//   camera.position.y += event.deltaY * 10;
+// }
 // rendering
 const render = () => {
   renderer.render(scene, camera);
